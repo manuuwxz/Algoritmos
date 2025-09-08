@@ -1,30 +1,30 @@
 livros = [
-    ["A Seleção", "Emanuelly", 5],
-    ["Divinos Rivais", "Lucas", 12],
-    ["Coraline", "Larissa", 3],
-    ["Alice no pais das maravilhas", "Alice", 9],
-    ["Crepusculo", "Isabella", 15]
+    {"titulo": "A Seleção", "usuario": "Emanuelly", "diasEmprestado": 5},
+    {"titulo": "Divinos Rivais", "usuario": "Lucas", "diasEmprestado": 12},
+    {"titulo": "Coraline", "usuario": "Larissa", "diasEmprestado": 3},
+    {"titulo": "Alice no pais das maravilhas", "usuario": "Alice", "diasEmprestado": 9},
+    {"titulo": "Crepusculo", "usuario": "Isabella", "diasEmprestado": 15}
 ]
 
 livrosMaisDeSete = []
 usuarios = []
-diasEmprestados = []
+totalDias = 0
+livroMaisTempo = livros[0]
 
-for titulo, usuario, dias in livros:
-    if dias > 7:
-        livrosMaisDeSete.append([titulo, usuario, dias])
-    usuarios.append(usuario)
-    diasEmprestados.append(dias)
+for livro in livros:
+    if livro["diasEmprestado"] > 7:
+        livrosMaisDeSete.append(livro)
+    usuarios.append(livro["usuario"])
+    totalDias += livro["diasEmprestado"]
+    if livro["diasEmprestado"] > livroMaisTempo["diasEmprestado"]:
+        livroMaisTempo = livro
 
-diaMaior = max(diasEmprestados)
-indiceMaior = diasEmprestados.index(diaMaior)
-maisTempo = livros[indiceMaior]
-media = sum(diasEmprestados) / len(diasEmprestados)
+media = totalDias / len(livros)
 
 print("Livros emprestados há mais de 7 dias:")
 for livro in livrosMaisDeSete:
-    print(f"- {livro[0]} ({livro[2]} dias)")
+    print(f"- {livro['titulo']} ({livro['diasEmprestado']} dias)")
 
-print(f"\nLivro emprestado há mais tempo: {maisTempo[0]} ({maisTempo[2]} dias)")
+print(f"\nLivro emprestado há mais tempo: {livroMaisTempo['titulo']} ({livroMaisTempo['diasEmprestado']} dias)")
 print(f"\nUsuários com livros emprestados: {usuarios}")
 print(f"\nMédia de dias de empréstimo: {media:.1f} dias")
